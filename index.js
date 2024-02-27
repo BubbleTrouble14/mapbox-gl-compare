@@ -190,6 +190,16 @@ Compare.prototype = {
     return this;
   },
 
+  updateBounds: function() {
+    this._bounds = this._mapB.getContainer().getBoundingClientRect();
+    if (this.currentPosition) {
+      var newPosition = this._horizontal ?
+        Math.min(this.currentPosition, this._bounds.height) :
+        Math.min(this.currentPosition, this._bounds.width);
+      this._setPosition(newPosition);
+    }
+  },
+
   remove: function() {
     this._clearSync();
     this._mapB.off('resize', this._onResize);
